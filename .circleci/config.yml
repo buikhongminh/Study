@@ -56,12 +56,31 @@ jobs:
       - run: 
            name: "What branch am I on?"
            command: echo ${CIRCLE_BRANCH}
+  save_hello_world_output:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: echo "this exercide:sharing file" > ~/output.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt
+  print_output_file:
+    docker:
+      - images: circleci/node:13.8.0
+    steps:
+      - attack_workspace:
+        at: ~/
+      - run: cat ~/output.txt  
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-        - build
-        - print_branch
+        - save_hello_world_output
+        - print_output_file:
+            requires:
+              - save_hello_world_output
   
