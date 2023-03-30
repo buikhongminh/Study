@@ -57,6 +57,7 @@ jobs:
   #     - run: 
   #          name: "What branch am I on?"
   #          command: echo ${CIRCLE_BRANCH}
+  #=======================================
   # save_hello_world_output:
   #   docker:
   #     - image: circleci/node:13.8.0
@@ -73,13 +74,23 @@ jobs:
   #     - attach_workspace:
   #         at: ~/
   #     - run: cat ~/output.txt  
+  #===================================
+  # my_job:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - print_pipeline_id
+#=====================================
   my_job:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - print_pipeline_id
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+      - run: exit 1
+      - run: 
+        name: on error
+        command: echo "Hello error"
+        when: on_fail
+
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
