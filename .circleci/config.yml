@@ -29,38 +29,37 @@ jobs:
   #      - run: # print the name of the branch we're on
   #         name: "What branch am I on?"
   #         command: echo ${CIRCLE_BRANCH}
-  print_hello:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run: echo hello
-  print_world:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run: echo world
-  build:
-    docker:
-      - image: cimg/base:2020.01
-    steps:
-      - checkout
-      - run:
-          name: "echo an env var that is part of our project"
-          command: |
-            echo $MY_ENV_VAR  
-  print_branch:
-    docker:
-      - image: cimg/base:2020.01
-    steps:
-      - checkout
-      - run: 
-           name: "What branch am I on?"
-           command: echo ${CIRCLE_BRANCH}
+  # print_hello:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - run: echo hello
+  # print_world:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - run: echo world
+  # build:
+  #   docker:
+  #     - image: cimg/base:2020.01
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "echo an env var that is part of our project"
+  #         command: |
+  #           echo $MY_ENV_VAR  
+  # print_branch:
+  #   docker:
+  #     - image: cimg/base:2020.01
+  #   steps:
+  #     - checkout
+  #     - run: 
+  #          name: "What branch am I on?"
+  #          command: echo ${CIRCLE_BRANCH}
   save_hello_world_output:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - checkout
       - run: echo "this exercide:sharing file" > ~/output.txt
       - persist_to_workspace:
           root: ~/
@@ -68,7 +67,7 @@ jobs:
             - output.txt
   print_output_file:
     docker:
-      - images: circleci/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - attack_workspace:
         at: ~/
