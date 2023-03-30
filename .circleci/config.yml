@@ -48,6 +48,14 @@ jobs:
           name: "echo an env var that is part of our project"
           command: |
             echo $MY_ENV_VAR  
+  print_branch:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - checkout
+      - run: 
+           name: "What branch am I on?"
+           command: echo ${CIRCLE_BRANCH}
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -55,4 +63,5 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
         - build
+        - print_branch
   
