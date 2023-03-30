@@ -87,9 +87,9 @@ jobs:
     steps:
       - run: exit 1
       - run: 
-        name: on error
-        command: echo "Hello error"
-        when: on_fail
+          name: on error
+          command: echo "Hello error"
+          when: on_fail
 
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
